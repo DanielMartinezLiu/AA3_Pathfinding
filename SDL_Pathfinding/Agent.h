@@ -7,7 +7,11 @@
 #include "Path.h"
 #include "Vector2D.h"
 #include "utils.h"
+#include "Blackboard.h"
 
+// Referencias cruzadas
+#include "PathFindingAlgorithm.h"
+#include "SensorySystem.h"
 
 class Agent
 {
@@ -40,27 +44,36 @@ private:
 	int sprite_w;
 	int sprite_h;
 
+	PathFindingAlgorithm pathFinder;
+	Blackboard blackboard;
+	SensorySystem sensors;
 public:
 	Agent();
 	~Agent();
+
 	Vector2D getPosition();
 	Vector2D getTarget();
 	Vector2D getVelocity();
+
 	float getMaxVelocity();
 	float getMaxForce();
 	float getMass();
+
 	void setBehavior(SteeringBehavior *behavior);
 	void setPosition(Vector2D position);
 	void setTarget(Vector2D target);
 	void setVelocity(Vector2D velocity);
 	void addPathPoint(Vector2D point);
 	void setCurrentTargetIndex(int idx);
+
 	int getCurrentTargetIndex();
 	int getPathSize();
+
 	Vector2D getPathPoint(int idx);
+
 	void clearPath();
 	void update(float dtime, SDL_Event *event);
 	void draw();
+
 	bool Agent::loadSpriteTexture(char* filename, int num_frames=1);
-	
 };
