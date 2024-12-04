@@ -2,6 +2,7 @@
 
 using namespace std;
 
+
 Agent::Agent() : sprite_texture(0),
                  position(Vector2D(100, 100)),
 	             target(Vector2D(1000, 100)),
