@@ -8,4 +8,7 @@ private:
 	Node* nodeTo;
 public:
 	float weight;
+
+	Node* GetNodeFrom() { return nodeFrom; }
+	Node* GetNodeTo() { return nodeTo; }
 };
