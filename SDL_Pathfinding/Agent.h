@@ -7,11 +7,7 @@
 #include "Path.h"
 #include "Vector2D.h"
 #include "utils.h"
-#include "Blackboard.h"
 
-// Referencias cruzadas
-#include "PathFindingAlgorithm.h"
-#include "SensorySystem.h"
 
 class Agent
 {
@@ -44,9 +40,9 @@ private:
 	int sprite_w;
 	int sprite_h;
 
-	PathFindingAlgorithm pathFinder;
-	Blackboard blackboard;
-	SensorySystem sensors;
+	//PathFindingAlgorithm pathFinder;
+	//Blackboard blackboard;
+	//SensorySystem sensors;
 public:
 	Agent();
 	~Agent();
