@@ -5,7 +5,7 @@
 class PathFindingAStar : public PathFindingAlgorithm
 {
 public:
-	PathFindingAStar() { new PathFindingAlgorithm(); }
+	PathFindingAStar(Grid* grid) : PathFindingAlgorithm(grid) {}
 	virtual void FindPath(Agent* agent, float dTime) override;
 };
 

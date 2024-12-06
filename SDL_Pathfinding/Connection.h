@@ -9,7 +9,6 @@ private:
 	float weight;
 public:
 
-
 	Connection(Node* _nodeFrom, Node* _nodeTo, float _weight)
 		:nodeFrom(_nodeFrom), nodeTo(_nodeTo), weight(_weight){}
 

@@ -5,7 +5,7 @@
 class PathFindingDFS : public PathFindingAlgorithm
 {
 public:
-	PathFindingDFS() { new PathFindingAlgorithm(); }
+	PathFindingDFS(Grid* grid) : PathFindingAlgorithm(grid) {}
 	virtual void FindPath(Agent* agent, float dTime) override;
 
 };

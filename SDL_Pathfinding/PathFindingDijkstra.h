@@ -5,7 +5,8 @@
 class PathFindingDijkstra : public PathFindingAlgorithm
 {
 public:
-	PathFindingDijkstra() { new PathFindingAlgorithm(); }
+	PathFindingDijkstra(Grid* grid) : PathFindingAlgorithm(grid) {}
+
 	virtual void FindPath(Agent* agent, float dTime) override;
 
 };

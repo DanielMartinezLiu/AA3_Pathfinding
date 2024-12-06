@@ -7,6 +7,8 @@ ScenePathFindingMouse::ScenePathFindingMouse()
 	draw_grid = false;
 	maze = new Grid("../res/maze.csv");
 
+	pathDFS = new PathFindingDFS(maze);
+
 	loadTextures("../res/maze.png", "../res/coin.png");
 
 	srand((unsigned int)time(NULL));
@@ -43,6 +45,7 @@ ScenePathFindingMouse::~ScenePathFindingMouse()
 	}
 }
 
+
 void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 {
 	/* Keyboard & Mouse events */
@@ -55,9 +58,14 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 	case SDL_MOUSEBUTTONDOWN:
 		if (event->button.button == SDL_BUTTON_LEFT)
 		{
+			Vector2D startPos = maze->pix2cell(Vector2D(agents[0]->getPosition().x, agents[0]->getPosition().y));
 			Vector2D cell = maze->pix2cell(Vector2D((float)(event->button.x), (float)(event->button.y)));
-			if (maze->isValidCell(cell)) {
-				agents[0]->addPathPoint(maze->cell2pix(cell));
+
+			if (maze->isValidCell(cell)) 
+			{
+				pathDFS->setStart(new Node(startPos.x, startPos.y));
+				pathDFS->setGoal(new Node(cell.x, cell.y));
+				//agents[0]->addPathPoint(maze->cell2pix(cell));
 			}
 		}
 		break;
@@ -66,6 +74,7 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 	}
 
 	agents[0]->update(dtime, event);
+	pathDFS->FindPath(agents[0], dtime);
 
 	// if we have arrived to the coin, replace it in a random cell!
 	if ((agents[0]->getCurrentTargetIndex() == -1) && (maze->pix2cell(agents[0]->getPosition()) == coinPosition))
@@ -136,7 +145,6 @@ void ScenePathFindingMouse::drawCoin()
 	SDL_Rect dstrect = {(int)coin_coords.x-offset, (int)coin_coords.y - offset, CELL_SIZE, CELL_SIZE};
 	SDL_RenderCopy(TheApp::Instance()->getRenderer(), coin_texture, NULL, &dstrect);
 }
-
 
 bool ScenePathFindingMouse::loadTextures(char* filename_bg, char* filename_coin)
 {
