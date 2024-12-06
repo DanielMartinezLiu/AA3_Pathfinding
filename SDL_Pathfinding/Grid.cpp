@@ -57,14 +57,17 @@ std::vector<Node*> Grid::getNeighbours(Node* currentNode)
 {
 	std::vector<Node*> neighbours;
 
-	if (currentNode->getY() > 0)
-		neighbours.push_back(nodes[currentNode->getY() - 1][currentNode->getX()]);
-	if (currentNode->getY() < num_cell_y - 1)
-		neighbours.push_back(nodes[currentNode->getY() + 1][currentNode->getX()]);
-	if (currentNode->getX() > 0)
-		neighbours.push_back(nodes[currentNode->getY()][currentNode->getX() - 1]);
-	if (currentNode->getX() < num_cell_x - 1)
-		neighbours.push_back(nodes[currentNode->getY()][currentNode->getX() + 1]);
+	if (currentNode->getType() != 0)
+	{
+		if (currentNode->getY() > 0)
+			neighbours.push_back(nodes[currentNode->getY() - 1][currentNode->getX()]);
+		if (currentNode->getY() < num_cell_y - 1)
+			neighbours.push_back(nodes[currentNode->getY() + 1][currentNode->getX()]);
+		if (currentNode->getX() > 0)
+			neighbours.push_back(nodes[currentNode->getY()][currentNode->getX() - 1]);
+		if (currentNode->getX() < num_cell_x - 1)
+			neighbours.push_back(nodes[currentNode->getY()][currentNode->getX() + 1]);
+	}
 
 	return neighbours;
 }

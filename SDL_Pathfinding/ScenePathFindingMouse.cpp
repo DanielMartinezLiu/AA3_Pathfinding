@@ -63,6 +63,7 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 
 			if (maze->isValidCell(cell)) 
 			{
+				pathDFS->resetNodes();
 				pathDFS->setStart(new Node(startPos.x, startPos.y));
 				pathDFS->setGoal(new Node(cell.x, cell.y));
 				//agents[0]->addPathPoint(maze->cell2pix(cell));
@@ -75,6 +76,7 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 
 	agents[0]->update(dtime, event);
 	pathDFS->FindPath(agents[0], dtime);
+	pathDFS->draw();
 
 	// if we have arrived to the coin, replace it in a random cell!
 	if ((agents[0]->getCurrentTargetIndex() == -1) && (maze->pix2cell(agents[0]->getPosition()) == coinPosition))
@@ -127,11 +129,11 @@ void ScenePathFindingMouse::drawMaze()
 				coords = maze->cell2pix(Vector2D((float)i, (float)j)) - Vector2D((float)CELL_SIZE / 2, (float)CELL_SIZE / 2);
 				rect = { (int)coords.x, (int)coords.y, CELL_SIZE, CELL_SIZE };
 				SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &rect);
-			} else {
+			} 
+			else 
+			{
 				// Do not draw if it is not necessary (bg is already black)
 			}
-					
-			
 		}
 	}
 	//Alternative: render a backgroud texture:

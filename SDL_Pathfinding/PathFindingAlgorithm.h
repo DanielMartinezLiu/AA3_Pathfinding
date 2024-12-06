@@ -6,15 +6,23 @@
 
 class PathFindingAlgorithm
 {
+
 protected:
 	Node* start;
 	Node* goal;
 	Grid* grid;
 
+	float elapsedTime = 0;
+	std::vector<Node*> nodes;
+
 public:
 	PathFindingAlgorithm(Grid* _grid);
 
 	virtual void FindPath(Agent* agent, float dTime);
+
+	void resetNodes();
+	void draw();
+
 
 	void setStart(Node* _start) { start = _start; }
 	void setGoal(Node* _goal) { goal = _goal; }
