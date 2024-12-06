@@ -6,5 +6,6 @@
 class PathFindingAlgorithm
 {
 public:
+	PathFindingAlgorithm() {}
 	virtual void FindPath(Agent* agent, float dTime);
 };

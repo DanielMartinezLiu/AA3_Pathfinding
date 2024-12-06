@@ -40,9 +40,7 @@ private:
 	int sprite_w;
 	int sprite_h;
 
-	//PathFindingAlgorithm pathFinder;
-	//Blackboard blackboard;
-	//SensorySystem sensors;
+
 public:
 	Agent();
 	~Agent();
