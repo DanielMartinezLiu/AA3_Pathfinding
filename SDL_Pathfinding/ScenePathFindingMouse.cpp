@@ -66,6 +66,7 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 				pathDFS->resetNodes();
 				pathDFS->setStart(new Node(startPos.x, startPos.y));
 				pathDFS->setGoal(new Node(cell.x, cell.y));
+				pathDFS->InitFind();
 				//agents[0]->addPathPoint(maze->cell2pix(cell));
 			}
 		}
@@ -73,7 +74,6 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-
 	agents[0]->update(dtime, event);
 	pathDFS->FindPath(agents[0], dtime);
 	pathDFS->draw();

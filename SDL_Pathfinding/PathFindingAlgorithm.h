@@ -12,8 +12,9 @@ protected:
 	Node* goal;
 	Grid* grid;
 
-	float elapsedTime = 0;
+	float elapsedTime;
 	std::vector<Node*> nodes;
+	bool goalReached;
 
 public:
 	PathFindingAlgorithm(Grid* _grid);
