@@ -4,11 +4,13 @@
 #include <sstream>
 #include <string>
 #include <time.h>
+
 #include "Scene.h"
 #include "Agent.h"
 #include "Seek.h"
 #include "PathFollowing.h"
 #include "Grid.h"
+#include "PathFindingDFS.h"
 
 class ScenePathFindingMouse :
 	public Scene
@@ -22,6 +24,8 @@ public:
 private:
 	std::vector<Agent*> agents;
 	Vector2D coinPosition;
+
+	PathFindingDFS* pathDFS;
 
 	Grid *maze;
 	bool draw_grid;

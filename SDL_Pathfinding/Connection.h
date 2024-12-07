@@ -6,6 +6,17 @@ class Connection
 private:
 	Node* nodeFrom;
 	Node* nodeTo;
-public:
 	float weight;
+
+public:
+
+	Connection(Node* _nodeFrom, Node* _nodeTo, float _weight)
+		:nodeFrom(_nodeFrom), nodeTo(_nodeTo), weight(_weight) {}
+
+	Node* getNodeFrom() { return nodeFrom; }
+	Node* getNodeTo() { return nodeTo; }
+	float getWeight() { return weight; }
+
+	void setNodeFrom(Node* _node) { nodeFrom = _node; }
+	void setNodeTo(Node* _node) { nodeTo = _node; }
 };

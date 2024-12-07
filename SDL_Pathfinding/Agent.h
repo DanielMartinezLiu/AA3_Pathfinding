@@ -3,6 +3,7 @@
 #include <minmax.h>
 #include <SDL.h>
 #include <SDL_image.h>
+
 #include "SDL_SimpleApp.h"
 #include "Path.h"
 #include "Vector2D.h"
@@ -40,9 +41,7 @@ private:
 	int sprite_w;
 	int sprite_h;
 
-	//PathFindingAlgorithm pathFinder;
-	//Blackboard blackboard;
-	//SensorySystem sensors;
+
 public:
 	Agent();
 	~Agent();

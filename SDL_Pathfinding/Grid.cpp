@@ -6,36 +6,33 @@ Grid::Grid(char* filename)
 {
 	num_cell_x = SRC_WIDTH / CELL_SIZE;
 	num_cell_y = SRC_HEIGHT / CELL_SIZE;
+	
+	int x = 0;
+	int y = 0;
 
 	// Initialize the terrain matrix from file (for each cell a zero value indicates it's a wall, positive values indicate terrain cell cost)
 	std::ifstream infile(filename);
 	std::string line;
 	while (std::getline(infile, line))
 	{
-		vector<int> terrain_row;
+		std::vector<Node*> node_row;
 		std::stringstream lineStream(line);
 		std::string cell;
+
+		x = 0;
 		while (std::getline(lineStream, cell, ','))
-			terrain_row.push_back(atoi(cell.c_str()));
-		SDL_assert(terrain_row.size() == num_cell_x);
-		terrain.push_back(terrain_row);
+		{
+			node_row.push_back(new Node(x, y, atoi(cell.c_str())));
+			x++;
+		}
+		y++;
+		nodes.push_back(node_row);
 	}
-	SDL_assert(terrain.size() == num_cell_y);
 	infile.close();
 }
 
 Grid::~Grid()
 {
-}
-
-int Grid::getNumCellX()
-{
-	return num_cell_x;
-}
-
-int Grid::getNumCellY()
-{
-	return num_cell_y;
 }
 
 Vector2D Grid::cell2pix(Vector2D cell)
@@ -51,7 +48,26 @@ Vector2D Grid::pix2cell(Vector2D pix)
 
 bool Grid::isValidCell(Vector2D cell)
 {
-	if ((cell.x < 0) || (cell.y < 0) || (cell.y >= terrain.size()) || (cell.x >= terrain[0].size()))
+	if ((cell.x < 0) || (cell.y < 0) || (cell.y >= num_cell_y) || (cell.x >= num_cell_x))
 		return false;
-	return !(terrain[(unsigned int)cell.y][(unsigned int)cell.x] == 0);
+	return !(nodes[(unsigned int)cell.y][(unsigned int)cell.x]->getType() == 0);
+}
+
+std::vector<Node*> Grid::getNeighbours(Node* currentNode)
+{
+	std::vector<Node*> neighbours;
+
+	if (currentNode->getType() != 0)
+	{
+		if (currentNode->getY() > 0)
+			neighbours.push_back(nodes[currentNode->getY() - 1][currentNode->getX()]);
+		if (currentNode->getY() < num_cell_y - 1)
+			neighbours.push_back(nodes[currentNode->getY() + 1][currentNode->getX()]);
+		if (currentNode->getX() > 0)
+			neighbours.push_back(nodes[currentNode->getY()][currentNode->getX() - 1]);
+		if (currentNode->getX() < num_cell_x - 1)
+			neighbours.push_back(nodes[currentNode->getY()][currentNode->getX() + 1]);
+	}
+
+	return neighbours;
 }

@@ -7,6 +7,8 @@ ScenePathFindingMouse::ScenePathFindingMouse()
 	draw_grid = false;
 	maze = new Grid("../res/maze.csv");
 
+	pathDFS = new PathFindingDFS(maze);
+
 	loadTextures("../res/maze.png", "../res/coin.png");
 
 	srand((unsigned int)time(NULL));
@@ -43,6 +45,7 @@ ScenePathFindingMouse::~ScenePathFindingMouse()
 	}
 }
 
+
 void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 {
 	/* Keyboard & Mouse events */
@@ -55,17 +58,26 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 	case SDL_MOUSEBUTTONDOWN:
 		if (event->button.button == SDL_BUTTON_LEFT)
 		{
+			Vector2D startPos = maze->pix2cell(Vector2D(agents[0]->getPosition().x, agents[0]->getPosition().y));
 			Vector2D cell = maze->pix2cell(Vector2D((float)(event->button.x), (float)(event->button.y)));
-			if (maze->isValidCell(cell)) {
-				agents[0]->addPathPoint(maze->cell2pix(cell));
+
+			if (maze->isValidCell(cell)) 
+			{
+				pathDFS->resetNodes();
+				pathDFS->setStart(new Node(startPos.x, startPos.y, 1));
+				pathDFS->setGoal(new Node(cell.x, cell.y, 1));
+				pathDFS->InitFind();
+				//agents[0]->addPathPoint(maze->cell2pix(cell));
 			}
 		}
 		break;
 	default:
 		break;
 	}
-
 	agents[0]->update(dtime, event);
+	pathDFS->FindPath(agents[0], dtime);
+	pathDFS->draw();
+	pathDFS->RecoverPath(agents[0]);
 
 	// if we have arrived to the coin, replace it in a random cell!
 	if ((agents[0]->getCurrentTargetIndex() == -1) && (maze->pix2cell(agents[0]->getPosition()) == coinPosition))
@@ -118,11 +130,11 @@ void ScenePathFindingMouse::drawMaze()
 				coords = maze->cell2pix(Vector2D((float)i, (float)j)) - Vector2D((float)CELL_SIZE / 2, (float)CELL_SIZE / 2);
 				rect = { (int)coords.x, (int)coords.y, CELL_SIZE, CELL_SIZE };
 				SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &rect);
-			} else {
+			} 
+			else 
+			{
 				// Do not draw if it is not necessary (bg is already black)
 			}
-					
-			
 		}
 	}
 	//Alternative: render a backgroud texture:
@@ -136,7 +148,6 @@ void ScenePathFindingMouse::drawCoin()
 	SDL_Rect dstrect = {(int)coin_coords.x-offset, (int)coin_coords.y - offset, CELL_SIZE, CELL_SIZE};
 	SDL_RenderCopy(TheApp::Instance()->getRenderer(), coin_texture, NULL, &dstrect);
 }
-
 
 bool ScenePathFindingMouse::loadTextures(char* filename_bg, char* filename_coin)
 {

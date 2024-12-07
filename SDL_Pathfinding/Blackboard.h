@@ -12,6 +12,9 @@ private:
 	PathFindingGraph* graph;
 
 public:
+	Blackboard(std::unordered_map<std::string, void*> _theBlackboard, PathFindingGraph* _graph)
+		:theBlackboard(_theBlackboard), graph(_graph){}
+
 	void SetFloat(std::string _key, float _value);
 	float GetFloat(std::string _key);
 
