@@ -1,14 +1,18 @@
 #pragma once
 #include <queue>
-#include <unordered_map>
+#include <map>
+#include <memory>
+
 #include "PathFindingAlgorithm.h"
 #include "Node.h"
+#include "Connection.h"
 
 class PathFindingDFS : public PathFindingAlgorithm
 {
 private:
 	std::queue<Node*> frontier;
-	std::unordered_map<Node*, Node*> cameFrom;
+	std::vector<Connection*> cameFrom;
+	//std::map<Node*, Connection*> cameFrom;
 	Node* current;
 	std::vector<Node*> path;
 
