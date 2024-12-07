@@ -32,6 +32,7 @@ void PathFindingDFS::FindPath(Agent* agent, float dTime)
 		// Comprobamos los vecinos
 		for (Node* next : grid->getNeighbours(_current))
 		{
+			nodes.push_back(_current);
 			bool alreadyVisited = false;
 			for (Connection* conn : cameFrom) 
 			{
@@ -46,7 +47,7 @@ void PathFindingDFS::FindPath(Agent* agent, float dTime)
 			// Si no lo hemos visitado, añadimos un nuevo connection con el valor actual y el siguiente
 			if (!alreadyVisited) 
 			{
-				nodes.push_back(_current);
+
 				std::cout << "Added Node: X -> " << next->getX() << " Y -> " << next->getY() << " Type -> " << next->getType() << ". Node current size: " << nodes.size() << std::endl;
 
 				frontierQueue.push(next);
