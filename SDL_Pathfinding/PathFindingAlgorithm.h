@@ -20,8 +20,9 @@ public:
 	PathFindingAlgorithm(Grid* _grid);
 
 	virtual void FindPath(Agent* agent, float dTime);
+	virtual void RecoverPath(Agent* agent);
 
-	void resetNodes();
+	virtual void resetNodes();
 	void draw();
 
 

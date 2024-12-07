@@ -2,8 +2,8 @@
 
 PathFindingAlgorithm::PathFindingAlgorithm(Grid* _grid)
 {
-	start = new Node(0, 0, 0);
-	goal = new Node(0, 0, 0);
+	start = nullptr;
+	goal = nullptr;
 	elapsedTime = 0;
 	goalReached = false;
 	grid = _grid;
@@ -15,8 +15,11 @@ void PathFindingAlgorithm::FindPath(Agent* agent, float dTime)
 
 void PathFindingAlgorithm::resetNodes()
 {
-	nodes.clear();
-	goalReached = false;
+
+}
+
+void PathFindingAlgorithm::RecoverPath(Agent* agent)
+{
 }
 
 void PathFindingAlgorithm::draw()
