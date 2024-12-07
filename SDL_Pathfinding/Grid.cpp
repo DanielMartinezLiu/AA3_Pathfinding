@@ -53,6 +53,11 @@ bool Grid::isValidCell(Vector2D cell)
 	return !(nodes[(unsigned int)cell.y][(unsigned int)cell.x]->getType() == 0);
 }
 
+int Grid::getCost(Node* current, Node* next)
+{
+	return sqrt(pow(current->getX() - next->getX(), 2) + pow(current->getY() - next->getY(), 2));
+}
+
 std::vector<Node*> Grid::getNeighbours(Node* currentNode)
 {
 	std::vector<Node*> neighbours;

@@ -11,6 +11,8 @@
 #include "PathFollowing.h"
 #include "Grid.h"
 #include "PathFindingDFS.h"
+#include "PathFindingDijkstra.h"
+#include "PathFindingGreedyBFS.h"
 
 class ScenePathFindingMouse :
 	public Scene
@@ -26,6 +28,8 @@ private:
 	Vector2D coinPosition;
 
 	PathFindingDFS* pathDFS;
+	PathFindingDijkstra* pathDijkstra;
+	PathFindingGreedyBFS* pathGFS;
 
 	Grid *maze;
 	bool draw_grid;

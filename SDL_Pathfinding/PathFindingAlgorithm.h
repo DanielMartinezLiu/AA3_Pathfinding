@@ -4,6 +4,12 @@
 #include "Agent.h"
 #include "Grid.h"
 
+struct PriorityQueueComparator {
+	bool operator()(const std::pair<Node*, int>& a, const std::pair<Node*, int>& b) const {
+		return a.second > b.second;
+	}
+};
+
 class PathFindingAlgorithm
 {
 
