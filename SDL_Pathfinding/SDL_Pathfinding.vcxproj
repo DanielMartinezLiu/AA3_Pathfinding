@@ -132,8 +132,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Agent.cpp" />
-    <ClCompile Include="Blackboard.cpp" />
-    <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -141,7 +139,6 @@
     <ClCompile Include="PathFindingAStar.cpp" />
     <ClCompile Include="PathFindingDFS.cpp" />
     <ClCompile Include="PathFindingDijkstra.cpp" />
-    <ClCompile Include="PathFindingGraph.cpp" />
     <ClCompile Include="PathFindingGreedyBFS.cpp" />
     <ClCompile Include="PathFollowing.cpp" />
     <ClCompile Include="ScenePathFindingMouse.cpp" />
@@ -152,7 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Agent.h" />
-    <ClInclude Include="Blackboard.h" />
     <ClInclude Include="Connection.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Node.h" />
@@ -161,7 +157,6 @@
     <ClInclude Include="PathFindingAStar.h" />
     <ClInclude Include="PathFindingDFS.h" />
     <ClInclude Include="PathFindingDijkstra.h" />
-    <ClInclude Include="PathFindingGraph.h" />
     <ClInclude Include="PathFindingGreedyBFS.h" />
     <ClInclude Include="PathFollowing.h" />
     <ClInclude Include="Scene.h" />

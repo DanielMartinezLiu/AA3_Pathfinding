@@ -162,7 +162,6 @@ void ScenePathFindingMouse::drawMaze(Grid* _grid)
 			if (!_grid->isValidCell(Vector2D((float)i, (float)j)))
 			{
 				setColor(97, 97, 97, pos);
-
 			} 
 			else
 			{

@@ -1,8 +1,11 @@
 #pragma once
 
-// Referencia cruzada con agent, pero lo pide el profe asi en el UML
+#include <queue>
+#include <unordered_map>
+
 #include "Agent.h"
 #include "Grid.h"
+#include "Connection.h"
 
 struct PriorityQueueComparator {
 	bool operator()(const std::pair<Node*, int>& a, const std::pair<Node*, int>& b) const {
@@ -14,6 +17,13 @@ class PathFindingAlgorithm
 {
 
 protected:
+	std::priority_queue<std::pair<Node*, int>, std::vector<std::pair<Node*, int>>, PriorityQueueComparator> frontierQueuePriority;
+	std::queue<Node*> frontierQueue;
+	std::vector<Connection*> cameFrom;
+	std::unordered_map<Node*, int> costSoFar;
+	Node* current;
+	std::vector<Node*> path;
+
 	Node* start;
 	Node* goal;
 	Grid* grid;
@@ -25,10 +35,12 @@ protected:
 public:
 	PathFindingAlgorithm(Grid* _grid);
 
-	virtual void FindPath(Agent* agent, float dTime);
-	virtual void RecoverPath(Agent* agent);
+	void InitPath();
 
-	virtual void resetNodes();
+	virtual void FindPath(Agent* agent, float dTime);
+	void RecoverPath(Agent* agent);
+
+	void resetNodes();
 	void draw();
 
 
