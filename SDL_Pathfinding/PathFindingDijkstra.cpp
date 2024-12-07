@@ -34,7 +34,7 @@ void PathFindingDijkstra::FindPath(Agent* agent, float dTime)
 		{
 			nodes.push_back(_current);
 			float newCost = costSoFar[_current] + grid->getTerrain(new Vector2D(next->getX(), next->getY()));
-			if (costSoFar.find(next) == costSoFar.end() || newCost < costSoFar[next])
+			if ((costSoFar.find(next) == costSoFar.end() || newCost < costSoFar[next]) && next->getType() != 0)
 			{
 				std::cout << "Added Node: X -> " << next->getX() << " Y -> " << next->getY() << " Type -> " << next->getType() << ". Node current size: " << nodes.size() << std::endl;
 

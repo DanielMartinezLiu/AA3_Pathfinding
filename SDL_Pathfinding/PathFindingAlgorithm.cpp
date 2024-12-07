@@ -25,6 +25,7 @@ void PathFindingAlgorithm::ResetNodes()
 	current = nullptr;
 	path.clear();
 	costSoFar.clear();
+	system("cls");
 }
 
 void PathFindingAlgorithm::RecoverPath(Agent* agent)

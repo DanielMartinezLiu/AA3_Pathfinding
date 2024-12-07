@@ -45,7 +45,7 @@ void PathFindingDFS::FindPath(Agent* agent, float dTime)
 			}
 
 			// Si no lo hemos visitado, añadimos un nuevo connection con el valor actual y el siguiente
-			if (!alreadyVisited) 
+			if (!alreadyVisited && next->getType() != 0)
 			{
 
 				std::cout << "Added Node: X -> " << next->getX() << " Y -> " << next->getY() << " Type -> " << next->getType() << ". Node current size: " << nodes.size() << std::endl;
