@@ -12,7 +12,6 @@ class PathFindingDFS : public PathFindingAlgorithm
 private:
 	std::queue<Node*> frontier;
 	std::vector<Connection*> cameFrom;
-	//std::map<Node*, Connection*> cameFrom;
 	Node* current;
 	std::vector<Node*> path;
 
