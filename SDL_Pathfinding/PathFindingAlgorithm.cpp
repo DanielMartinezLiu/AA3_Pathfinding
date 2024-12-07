@@ -15,11 +15,7 @@ void PathFindingAlgorithm::InitPath()
 	path.push_back(current);
 }
 
-void PathFindingAlgorithm::FindPath(Agent* agent, float dTime)
-{
-}
-
-void PathFindingAlgorithm::resetNodes()
+void PathFindingAlgorithm::ResetNodes()
 {
 	frontierQueue = std::queue<Node*>();
 	frontierQueuePriority = std::priority_queue<std::pair<Node*, int>, std::vector<std::pair<Node*, int>>, PriorityQueueComparator>();
@@ -65,7 +61,16 @@ void PathFindingAlgorithm::RecoverPath(Agent* agent)
 	}
 }
 
-void PathFindingAlgorithm::draw()
+void PathFindingAlgorithm::ExecuteAlgorithm(Node* _startNode, Node* _goalNode)
+{
+	ResetNodes();
+	SetStart(_startNode);
+	SetGoal(_goalNode);
+	InitFind();
+}
+
+
+void PathFindingAlgorithm::Draw()
 {
 	for (Node* node : nodes)
 	{
@@ -73,3 +78,13 @@ void PathFindingAlgorithm::draw()
 		node->draw(position);
 	}
 }
+
+void PathFindingAlgorithm::Update(Agent* _agent, float dt)
+{
+	if(goalReached == false)
+		FindPath(_agent, dt);
+
+	RecoverPath(_agent);
+}
+
+

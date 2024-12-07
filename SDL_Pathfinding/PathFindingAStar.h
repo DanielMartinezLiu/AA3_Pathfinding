@@ -10,7 +10,7 @@ class PathFindingAStar : public PathFindingAlgorithm
 {
 public:
 	PathFindingAStar(Grid* grid) : PathFindingAlgorithm(grid) {}
-	void InitFind();
+	virtual void InitFind() override;
 
 	virtual void FindPath(Agent* agent, float dTime) override;
 };

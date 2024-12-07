@@ -37,14 +37,20 @@ public:
 
 	void InitPath();
 
-	virtual void FindPath(Agent* agent, float dTime);
+	virtual void FindPath(Agent* agent, float dTime) = 0;
+	virtual void InitFind() = 0;
+
 	void RecoverPath(Agent* agent);
 
-	void resetNodes();
-	void draw();
+	void ExecuteAlgorithm(Node* _startNode, Node* _goalNode);
+
+	void ResetNodes();
+	void Draw();
+
+	void Update(Agent* _agent, float dt);
 
 
-	void setStart(Node* _start) { start = _start; }
-	void setGoal(Node* _goal) { goal = _goal; }
-	void setGrid(Grid* _grid) { grid = _grid; }
+	void SetStart(Node* _start) { start = _start; }
+	void SetGoal(Node* _goal) { goal = _goal; }
+	void SetGrid(Grid* _grid) { grid = _grid; }
 };

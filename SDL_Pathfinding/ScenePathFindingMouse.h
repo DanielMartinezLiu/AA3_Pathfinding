@@ -28,13 +28,9 @@ private:
 	std::vector<Agent*> agents;
 	Vector2D coinPosition;
 
-	PathFindingDFS* pathDFS;
-	PathFindingDijkstra* pathDijkstra;
-	PathFindingGreedyBFS* pathGFS;
-	PathFindingAStar* pathA;
+	PathFindingAlgorithm* currentPathfindingAlgorithm;
 
-	Grid* maze;
-	Grid* mazeWithWeight;
+	Grid* currentMaze;
 
 	bool draw_grid;
 		
