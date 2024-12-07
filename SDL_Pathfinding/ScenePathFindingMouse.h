@@ -12,6 +12,7 @@
 #include "Grid.h"
 #include "PathFindingDFS.h"
 #include "PathFindingDijkstra.h"
+#include "PathFindingGreedyBFS.h"
 
 class ScenePathFindingMouse :
 	public Scene
@@ -28,6 +29,7 @@ private:
 
 	PathFindingDFS* pathDFS;
 	PathFindingDijkstra* pathDijkstra;
+	PathFindingGreedyBFS* pathGFS;
 
 	Grid *maze;
 	bool draw_grid;

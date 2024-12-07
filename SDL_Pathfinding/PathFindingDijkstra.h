@@ -7,10 +7,11 @@
 #include "Node.h"
 #include "Connection.h"
 
+
 class PathFindingDijkstra : public PathFindingAlgorithm
 {
 private:
-	std::priority_queue<std::pair<Node*, float>> frontier;
+	std::priority_queue<std::pair<Node*, int>, std::vector<std::pair<Node*, int>>, PriorityQueueComparator> frontier;
 	std::vector<Connection*> cameFrom;
 	std::unordered_map<Node*, int> costSoFar;
 	Node* current;
@@ -26,4 +27,6 @@ public:
 	virtual void RecoverPath(Agent* agent) override;
 	virtual void resetNodes() override;
 };
+
+
 

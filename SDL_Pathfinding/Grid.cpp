@@ -55,10 +55,7 @@ bool Grid::isValidCell(Vector2D cell)
 
 int Grid::getCost(Node* current, Node* next)
 {
-	int x = current->getX() - next->getX();
-	int y = current->getY() - next->getY();
-
-	return std::sqrt(x*x+y*y);
+	return sqrt(pow(current->getX() - next->getX(), 2) + pow(current->getY() - next->getY(), 2));
 }
 
 std::vector<Node*> Grid::getNeighbours(Node* currentNode)

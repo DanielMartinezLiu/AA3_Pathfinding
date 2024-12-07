@@ -4,7 +4,7 @@ void PathFindingDijkstra::InitFind()
 {
 	frontier.push({ start, 0 });
 	cameFrom.push_back(new Connection(start, start, 0));
-	costSoFar.emplace(start, 0);
+	costSoFar[start] = 0;
 }
 
 void PathFindingDijkstra::InitPath()
@@ -24,8 +24,7 @@ void PathFindingDijkstra::FindPath(Agent* agent, float dTime)
 
 	if (elapsedTime > 0.01f)
 	{
-		std::pair<Node*, float> currentPair = frontier.top();
-		Node* _current = currentPair.first;
+		Node* _current = frontier.top().first;
 		frontier.pop();
 
 		nodes.push_back(_current);
@@ -44,9 +43,9 @@ void PathFindingDijkstra::FindPath(Agent* agent, float dTime)
 			float newCost = costSoFar[_current] + grid->getCost(_current, next);
 			if (costSoFar.find(next) == costSoFar.end() || newCost < costSoFar[next])
 			{
-				costSoFar.emplace(next, newCost);
+				costSoFar[next] = newCost;
 				frontier.push({ next, newCost });
-				cameFrom.push_back(new Connection(_current, next, newCost));
+				cameFrom.push_back(new Connection(_current, next, 0));
 			}
 		}
 		elapsedTime = 0;
@@ -89,10 +88,11 @@ void PathFindingDijkstra::RecoverPath(Agent* agent)
 
 void PathFindingDijkstra::resetNodes()
 {
-	frontier = std::priority_queue<std::pair<Node*, float>>();
+	frontier = std::priority_queue<std::pair<Node*, int>, std::vector<std::pair<Node*, int>>, PriorityQueueComparator>();
 	goalReached = false;
 	nodes.clear();
 	cameFrom.clear();
 	current = nullptr;
 	path.clear();
+	costSoFar.clear();
 }
