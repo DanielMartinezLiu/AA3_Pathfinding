@@ -10,6 +10,7 @@ ScenePathFindingMouse::ScenePathFindingMouse()
 	pathDFS = new PathFindingDFS(maze);
 	pathDijkstra = new PathFindingDijkstra(maze);
 	pathGFS = new PathFindingGreedyBFS(maze);
+	pathA = new PathFindingAStar(maze);
 
 	loadTextures("../res/maze.png", "../res/coin.png");
 
@@ -75,10 +76,15 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 				//pathDijkstra->setStart(new Node(startPos.x, startPos.y, 1));
 				//pathDijkstra->setGoal(new Node(cell.x, cell.y, 1));
 				//pathDijkstra->InitFind();
-				pathGFS->resetNodes();
-				pathGFS->setStart(new Node(startPos.x, startPos.y, 1));
-				pathGFS->setGoal(new Node(cell.x, cell.y, 1));
-				pathGFS->InitFind();
+				//pathGFS->resetNodes();
+				//pathGFS->setStart(new Node(startPos.x, startPos.y, 1));
+				//pathGFS->setGoal(new Node(cell.x, cell.y, 1));
+				//pathGFS->InitFind();
+
+				pathA->resetNodes();
+				pathA->setStart(new Node(startPos.x, startPos.y, 1));
+				pathA->setGoal(new Node(cell.x, cell.y, 1));
+				pathA->InitFind();
 
 			}
 		}
@@ -97,9 +103,13 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 	//pathDijkstra->draw();
 	//pathDijkstra->RecoverPath(agents[0]);
 
-	pathGFS->FindPath(agents[0], dtime);
-	pathGFS->draw();
-	pathGFS->RecoverPath(agents[0]);
+	//pathGFS->FindPath(agents[0], dtime);
+	//pathGFS->draw();
+	//pathGFS->RecoverPath(agents[0]);
+
+	pathA->FindPath(agents[0], dtime);
+	pathA->draw();
+	pathA->RecoverPath(agents[0]);
 
 
 	// if we have arrived to the coin, replace it in a random cell!
