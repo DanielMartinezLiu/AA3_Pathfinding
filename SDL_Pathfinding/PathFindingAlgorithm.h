@@ -1,8 +1,11 @@
 #pragma once
 
-// Referencia cruzada con agent, pero lo pide el profe asi en el UML
+#include <queue>
+#include <unordered_map>
+
 #include "Agent.h"
 #include "Grid.h"
+#include "Connection.h"
 
 struct PriorityQueueComparator {
 	bool operator()(const std::pair<Node*, int>& a, const std::pair<Node*, int>& b) const {
@@ -14,6 +17,13 @@ class PathFindingAlgorithm
 {
 
 protected:
+	std::priority_queue<std::pair<Node*, int>, std::vector<std::pair<Node*, int>>, PriorityQueueComparator> frontierQueuePriority;
+	std::queue<Node*> frontierQueue;
+	std::vector<Connection*> cameFrom;
+	std::unordered_map<Node*, int> costSoFar;
+	Node* current;
+	std::vector<Node*> path;
+
 	Node* start;
 	Node* goal;
 	Grid* grid;
@@ -25,14 +35,22 @@ protected:
 public:
 	PathFindingAlgorithm(Grid* _grid);
 
-	virtual void FindPath(Agent* agent, float dTime);
-	virtual void RecoverPath(Agent* agent);
+	void InitPath();
 
-	virtual void resetNodes();
-	void draw();
+	virtual void FindPath(Agent* agent, float dTime) = 0;
+	virtual void InitFind() = 0;
+
+	void RecoverPath(Agent* agent);
+
+	void ExecuteAlgorithm(Node* _startNode, Node* _goalNode);
+
+	void ResetNodes();
+	void Draw();
+
+	void Update(Agent* _agent, float dt);
 
 
-	void setStart(Node* _start) { start = _start; }
-	void setGoal(Node* _goal) { goal = _goal; }
-	void setGrid(Grid* _grid) { grid = _grid; }
+	void SetStart(Node* _start) { start = _start; }
+	void SetGoal(Node* _goal) { goal = _goal; }
+	void SetGrid(Grid* _grid) { grid = _grid; }
 };

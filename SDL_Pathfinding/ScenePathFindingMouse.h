@@ -28,18 +28,20 @@ private:
 	std::vector<Agent*> agents;
 	Vector2D coinPosition;
 
-	PathFindingDFS* pathDFS;
-	PathFindingDijkstra* pathDijkstra;
-	PathFindingGreedyBFS* pathGFS;
-	PathFindingAStar* pathA;
+	PathFindingAlgorithm* currentPathfindingAlgorithm;
 
-	Grid *maze;
+	Grid* currentMaze;
+
 	bool draw_grid;
 		
-	void drawMaze();
+	void drawMaze(Grid* _grid);
 	void drawCoin();
+
+	void setColor(int r, int g, int b, Vector2D pos);
+
 	SDL_Texture *background_texture;
 	SDL_Texture *coin_texture;
+
 	bool loadTextures(char* filename_bg, char* filename_coin);
 
 };
