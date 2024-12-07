@@ -26,8 +26,6 @@ void PathFindingGreedyBFS::FindPath(Agent* agent, float dTime)
 		Node* _current = frontier.top().first;
 		frontier.pop();
 
-		nodes.push_back(_current);
-
 		// Si el mapa ya se ha pintado completamente, iniciamos el camino
 		if (*_current == *goal)
 		{
@@ -53,6 +51,8 @@ void PathFindingGreedyBFS::FindPath(Agent* agent, float dTime)
 			// Si no lo hemos visitado, añadimos un nuevo connection con el valor actual y el siguiente
 			if (!alreadyVisited)
 			{
+				nodes.push_back(_current);
+				std::cout << "Nodo Añadido: X -> " << next->getX() << " Y -> " << next->getY() << " Type -> " << next->getType() << std::endl;
 				int priority = grid->getCost(goal, next); // Solo usamos la heurística
 				frontier.push({ next, priority });
 				cameFrom.push_back(new Connection(_current, next, 0));

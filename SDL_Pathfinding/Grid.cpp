@@ -53,6 +53,19 @@ bool Grid::isValidCell(Vector2D cell)
 	return !(nodes[(unsigned int)cell.y][(unsigned int)cell.x]->getType() == 0);
 }
 
+int Grid::getTerrain(Vector2D* position)
+{
+	int x = position->x;
+	int y = position->y;
+
+	if (x < 0 || y < 0 || x >= num_cell_x || y >= num_cell_y)
+	{
+		return 0;
+	}
+
+	return nodes[y][x]->getType();
+}
+
 int Grid::getCost(Node* current, Node* next)
 {
 	return sqrt(pow(current->getX() - next->getX(), 2) + pow(current->getY() - next->getY(), 2));

@@ -6,11 +6,12 @@ ScenePathFindingMouse::ScenePathFindingMouse()
 {
 	draw_grid = false;
 	maze = new Grid("../res/maze.csv");
+	mazeWithWeight = new Grid("../res/maze1.csv");
 
 	pathDFS = new PathFindingDFS(maze);
-	pathDijkstra = new PathFindingDijkstra(maze);
+	pathDijkstra = new PathFindingDijkstra(mazeWithWeight);
 	pathGFS = new PathFindingGreedyBFS(maze);
-	pathA = new PathFindingAStar(maze);
+	pathA = new PathFindingAStar(mazeWithWeight);
 
 	loadTextures("../res/maze.png", "../res/coin.png");
 
@@ -66,26 +67,26 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 
 			if (maze->isValidCell(cell)) 
 			{
-				/*
-				pathDFS->resetNodes();
-				pathDFS->setStart(new Node(startPos.x, startPos.y, 1));
-				pathDFS->setGoal(new Node(cell.x, cell.y, 1));
-				pathDFS->InitFind();
-				*/
+				
+				//pathDFS->resetNodes();
+				//pathDFS->setStart(new Node(startPos.x, startPos.y, 1));
+				//pathDFS->setGoal(new Node(cell.x, cell.y, 1));
+				//pathDFS->InitFind();
+		
 				//pathDijkstra->resetNodes();
 				//pathDijkstra->setStart(new Node(startPos.x, startPos.y, 1));
 				//pathDijkstra->setGoal(new Node(cell.x, cell.y, 1));
 				//pathDijkstra->InitFind();
+				
 				//pathGFS->resetNodes();
 				//pathGFS->setStart(new Node(startPos.x, startPos.y, 1));
 				//pathGFS->setGoal(new Node(cell.x, cell.y, 1));
 				//pathGFS->InitFind();
-
+				
 				pathA->resetNodes();
 				pathA->setStart(new Node(startPos.x, startPos.y, 1));
 				pathA->setGoal(new Node(cell.x, cell.y, 1));
 				pathA->InitFind();
-
 			}
 		}
 		break;
@@ -94,23 +95,18 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 	}
 	agents[0]->update(dtime, event);
 
-	/*
-	pathDFS->FindPath(agents[0], dtime);
-	pathDFS->draw();
-	pathDFS->RecoverPath(agents[0]);
-	*/
+	
+	//pathDFS->FindPath(agents[0], dtime);
+	//pathDFS->RecoverPath(agents[0]);
+	
 	//pathDijkstra->FindPath(agents[0], dtime);
-	//pathDijkstra->draw();
 	//pathDijkstra->RecoverPath(agents[0]);
 
 	//pathGFS->FindPath(agents[0], dtime);
-	//pathGFS->draw();
 	//pathGFS->RecoverPath(agents[0]);
 
 	pathA->FindPath(agents[0], dtime);
-	pathA->draw();
 	pathA->RecoverPath(agents[0]);
-
 
 	// if we have arrived to the coin, replace it in a random cell!
 	if ((agents[0]->getCurrentTargetIndex() == -1) && (maze->pix2cell(agents[0]->getPosition()) == coinPosition))
@@ -124,8 +120,13 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 
 void ScenePathFindingMouse::draw()
 {
-	drawMaze();
+	drawMaze(mazeWithWeight);
 	drawCoin();
+
+	//pathDFS->draw();
+	//pathDijkstra->draw();
+	//pathGFS->draw();
+	pathA->draw();
 
 	if (draw_grid)
 	{
@@ -148,25 +149,40 @@ const char* ScenePathFindingMouse::getTitle()
 	return "SDL Path Finding :: PathFinding Mouse Demo";
 }
 
-void ScenePathFindingMouse::drawMaze()
+void ScenePathFindingMouse::drawMaze(Grid* _grid)
 {
-	SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 0, 255, 255);
-	SDL_Rect rect;
-	Vector2D coords;
-	for (int j = 0; j < maze->getNumCellY(); j++)
+	SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 155, 255, 255);
+
+	for (int j = 0; j < _grid->getNumCellY(); j++)
 	{
-		for (int i = 0; i < maze->getNumCellX(); i++)
+		for (int i = 0; i < _grid->getNumCellX(); i++)
 		{		
-			if (!maze->isValidCell(Vector2D((float)i, (float)j)))
+			Vector2D pos = _grid->cell2pix(Vector2D(i, j));
+
+			if (!_grid->isValidCell(Vector2D((float)i, (float)j)))
 			{
-				SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), 0, 0, 255, 255);
-				coords = maze->cell2pix(Vector2D((float)i, (float)j)) - Vector2D((float)CELL_SIZE / 2, (float)CELL_SIZE / 2);
-				rect = { (int)coords.x, (int)coords.y, CELL_SIZE, CELL_SIZE };
-				SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &rect);
+				setColor(97, 97, 97, pos);
+
 			} 
-			else 
+			else
 			{
-				// Do not draw if it is not necessary (bg is already black)
+				switch (_grid->getTerrain(new Vector2D(i, j)))
+				{
+				case 1:
+					setColor(168, 230, 163, pos);
+					break;
+				case 2:
+					setColor(255, 245, 157, pos);
+					break;
+				case 3:
+					setColor(255, 204, 128, pos);
+					break;
+				case 4:
+					setColor(239, 154, 154, pos);
+					break;
+				default:
+					break;
+				}
 			}
 		}
 	}
@@ -180,6 +196,14 @@ void ScenePathFindingMouse::drawCoin()
 	int offset = CELL_SIZE / 2;
 	SDL_Rect dstrect = {(int)coin_coords.x-offset, (int)coin_coords.y - offset, CELL_SIZE, CELL_SIZE};
 	SDL_RenderCopy(TheApp::Instance()->getRenderer(), coin_texture, NULL, &dstrect);
+}
+
+void ScenePathFindingMouse::setColor(int r, int g, int b, Vector2D pos)
+{
+	SDL_SetRenderDrawColor(TheApp::Instance()->getRenderer(), r, g, b, 255);
+	Vector2D coords = pos - Vector2D((float)CELL_SIZE / 2, (float)CELL_SIZE / 2);
+	SDL_Rect rect = { (int)coords.x, (int)coords.y, CELL_SIZE, CELL_SIZE };
+	SDL_RenderFillRect(TheApp::Instance()->getRenderer(), &rect);
 }
 
 bool ScenePathFindingMouse::loadTextures(char* filename_bg, char* filename_coin)

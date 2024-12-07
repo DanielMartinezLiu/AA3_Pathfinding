@@ -33,13 +33,19 @@ private:
 	PathFindingGreedyBFS* pathGFS;
 	PathFindingAStar* pathA;
 
-	Grid *maze;
+	Grid* maze;
+	Grid* mazeWithWeight;
+
 	bool draw_grid;
 		
-	void drawMaze();
+	void drawMaze(Grid* _grid);
 	void drawCoin();
+
+	void setColor(int r, int g, int b, Vector2D pos);
+
 	SDL_Texture *background_texture;
 	SDL_Texture *coin_texture;
+
 	bool loadTextures(char* filename_bg, char* filename_coin);
 
 };

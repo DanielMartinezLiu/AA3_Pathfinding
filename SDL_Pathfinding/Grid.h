@@ -27,6 +27,7 @@ public:
 
 	int getNumCellX() { return num_cell_x; }
 	int getNumCellY() { return num_cell_y; }
+	int getTerrain(Vector2D* position);
 
 	int getCost(Node* current, Node* next);
 

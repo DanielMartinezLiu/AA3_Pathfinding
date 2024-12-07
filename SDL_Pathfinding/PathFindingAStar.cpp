@@ -27,7 +27,6 @@ void PathFindingAStar::FindPath(Agent* agent, float dTime)
 		Node* _current = frontier.top().first;
 		frontier.pop();
 
-		nodes.push_back(_current);
 
 		// Si el mapa ya se ha pintado completamente, iniciamos el camino
 		if (*_current == *goal)
@@ -40,9 +39,12 @@ void PathFindingAStar::FindPath(Agent* agent, float dTime)
 		// Comprobamos los vecinos
 		for (Node* next : grid->getNeighbours(_current))
 		{
-			float newCost = costSoFar[_current] + grid->getCost(_current, next);
+			float newCost = costSoFar[_current] + grid->getTerrain(new Vector2D(next->getX(), next->getY()));
 			if (costSoFar.find(next) == costSoFar.end() || newCost < costSoFar[next])
 			{
+				nodes.push_back(_current);
+				std::cout << "Nodo Añadido: X -> " << next->getX() << " Y -> " << next->getY() << " Type -> " << next->getType() << std::endl;
+
 				costSoFar[next] = newCost;
 				int priority = newCost + grid->getCost(goal, next);
 				frontier.push({ next, priority });

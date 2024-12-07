@@ -27,8 +27,6 @@ void PathFindingDFS::FindPath(Agent* agent, float dTime)
 		Node* _current = frontier.front();
 		frontier.pop();
 
-		nodes.push_back(_current);
-
 		// Si el mapa ya se ha pintado completamente, iniciamos el camino
 		if (*_current == *goal)
 		{
@@ -54,6 +52,9 @@ void PathFindingDFS::FindPath(Agent* agent, float dTime)
 			// Si no lo hemos visitado, añadimos un nuevo connection con el valor actual y el siguiente
 			if (!alreadyVisited) 
 			{
+				nodes.push_back(_current);
+				std::cout << "Nodo Añadido: X -> " << next->getX() << " Y -> " << next->getY() << " Type -> " << next->getType() << std::endl;
+
 				frontier.push(next);
 				cameFrom.push_back(new Connection(_current, next, 0)); 
 			}
