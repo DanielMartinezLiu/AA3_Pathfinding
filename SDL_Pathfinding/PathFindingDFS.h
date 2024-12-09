@@ -11,11 +11,11 @@ class PathFindingDFS : public PathFindingAlgorithm
 {
 
 public:
-	PathFindingDFS(Grid* grid) : PathFindingAlgorithm(grid) {}
+	PathFindingDFS(Grid* grid, std::vector<Agent*> agent) : PathFindingAlgorithm(grid, agent) {}
 
 	void InitFind();
 
-	virtual void FindPath(Agent* agent, float dTime) override;
+	virtual void FindPath(float dTime) override;
 
 };
 

@@ -6,6 +6,7 @@
 #include "Agent.h"
 #include "Grid.h"
 #include "Connection.h"
+#include "Agent.h"
 
 struct PriorityQueueComparator {
 	bool operator()(const std::pair<Node*, int>& a, const std::pair<Node*, int>& b) const {
@@ -23,6 +24,7 @@ protected:
 	std::unordered_map<Node*, int> costSoFar;
 	Node* current;
 	std::vector<Node*> path;
+	std::vector<Agent*> agents;
 
 	Node* start;
 	Node* goal;
@@ -33,21 +35,21 @@ protected:
 	bool goalReached;
 
 public:
-	PathFindingAlgorithm(Grid* _grid);
+	PathFindingAlgorithm(Grid* _grid, std::vector<Agent*> agent);
 
 	void InitPath();
 
-	virtual void FindPath(Agent* agent, float dTime) = 0;
+	virtual void FindPath(float dTime) = 0;
 	virtual void InitFind() = 0;
 
-	void RecoverPath(Agent* agent);
+	void RecoverPath();
 
 	void ExecuteAlgorithm(Node* _startNode, Node* _goalNode);
 
 	void ResetNodes();
 	void Draw();
 
-	void Update(Agent* _agent, float dt);
+	void Update(float dt);
 
 
 	void SetStart(Node* _start) { start = _start; }

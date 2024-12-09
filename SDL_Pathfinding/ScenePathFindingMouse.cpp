@@ -7,14 +7,10 @@ ScenePathFindingMouse::ScenePathFindingMouse()
 	draw_grid = false;
 	currentMaze = new Grid("../res/maze.csv");
 
-	currentPathfindingAlgorithm = new PathFindingDFS(currentMaze);
-
 	/*
 	pathDijkstra = new PathFindingDijkstra(mazeWithWeight);
 	pathGFS = new PathFindingGreedyBFS(maze);
 	pathA = new PathFindingAStar(mazeWithWeight);*/
-
-	loadTextures("../res/maze.png", "../res/coin.png");
 
 	srand((unsigned int)time(NULL));
 
@@ -23,6 +19,9 @@ ScenePathFindingMouse::ScenePathFindingMouse()
 	agent->setBehavior(new PathFollowing);
 	agent->setTarget(Vector2D(-20,-20));
 	agents.push_back(agent);
+
+	currentPathfindingAlgorithm = new PathFindingDFS(currentMaze, agents);
+	loadTextures("../res/maze.png", "../res/coin.png");
 
 	// set agent position coords to the center of a random cell
 	Vector2D rand_cell(-1,-1);
@@ -62,22 +61,22 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 		if (event->key.keysym.scancode == SDL_SCANCODE_B)
 		{
 			currentMaze = new Grid("../res/maze.csv");
-			currentPathfindingAlgorithm = new PathFindingDFS(currentMaze);
+			currentPathfindingAlgorithm = new PathFindingDFS(currentMaze, agents);
 		}
 		if (event->key.keysym.scancode == SDL_SCANCODE_D)
 		{
 			currentMaze = new Grid("../res/maze1.csv");
-			currentPathfindingAlgorithm = new PathFindingDijkstra(currentMaze);
+			currentPathfindingAlgorithm = new PathFindingDijkstra(currentMaze, agents);
 		}
 		if (event->key.keysym.scancode == SDL_SCANCODE_G)
 		{
 			currentMaze = new Grid("../res/maze.csv");
-			currentPathfindingAlgorithm = new PathFindingGreedyBFS(currentMaze);
+			currentPathfindingAlgorithm = new PathFindingGreedyBFS(currentMaze, agents);
 		}
 		if (event->key.keysym.scancode == SDL_SCANCODE_A)
 		{
 			currentMaze = new Grid("../res/maze1.csv");
-			currentPathfindingAlgorithm = new PathFindingAStar(currentMaze);
+			currentPathfindingAlgorithm = new PathFindingAStar(currentMaze, agents);
 		}
 		break;
 	case SDL_MOUSEMOTION:
@@ -98,7 +97,7 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 	}
 	agents[0]->update(dtime, event);
 
-	currentPathfindingAlgorithm->Update(agents[0], dtime);
+	currentPathfindingAlgorithm->Update(dtime);
 
 	// if we have arrived to the coin, replace it in a random cell!
 	if ((agents[0]->getCurrentTargetIndex() == -1) && (currentMaze->pix2cell(agents[0]->getPosition()) == coinPosition))

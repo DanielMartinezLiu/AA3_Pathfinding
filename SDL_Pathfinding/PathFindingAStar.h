@@ -9,8 +9,8 @@
 class PathFindingAStar : public PathFindingAlgorithm
 {
 public:
-	PathFindingAStar(Grid* grid) : PathFindingAlgorithm(grid) {}
+	PathFindingAStar(Grid* grid, std::vector<Agent*> agent) : PathFindingAlgorithm(grid, agent) {}
 	virtual void InitFind() override;
 
-	virtual void FindPath(Agent* agent, float dTime) override;
+	virtual void FindPath(float dTime) override;
 };

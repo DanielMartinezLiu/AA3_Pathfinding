@@ -1,12 +1,13 @@
 #include "PathFindingAlgorithm.h"
 
-PathFindingAlgorithm::PathFindingAlgorithm(Grid* _grid)
+PathFindingAlgorithm::PathFindingAlgorithm(Grid* _grid, std::vector<Agent*> agent)
 {
 	start = nullptr;
 	goal = nullptr;
 	elapsedTime = 0;
 	goalReached = false;
 	grid = _grid;
+	agents = agent;
 }
 
 void PathFindingAlgorithm::InitPath()
@@ -17,18 +18,19 @@ void PathFindingAlgorithm::InitPath()
 
 void PathFindingAlgorithm::ResetNodes()
 {
+	goalReached = false;
 	frontierQueue = std::queue<Node*>();
 	frontierQueuePriority = std::priority_queue<std::pair<Node*, int>, std::vector<std::pair<Node*, int>>, PriorityQueueComparator>();
-	goalReached = false;
 	nodes.clear();
 	cameFrom.clear();
 	current = nullptr;
 	path.clear();
 	costSoFar.clear();
+	agents[0]->clearPath();
 	system("cls");
 }
 
-void PathFindingAlgorithm::RecoverPath(Agent* agent)
+void PathFindingAlgorithm::RecoverPath()
 {
 	if (goalReached)
 	{
@@ -54,7 +56,7 @@ void PathFindingAlgorithm::RecoverPath(Agent* agent)
 			for (Node* node : path)
 			{
 				Vector2D cellPosition = grid->cell2pix(Vector2D(node->getX(), node->getY()));
-				agent->addPathPoint(cellPosition);
+				agents[0]->addPathPoint(cellPosition);
 			}
 
 			path.clear();
@@ -80,12 +82,12 @@ void PathFindingAlgorithm::Draw()
 	}
 }
 
-void PathFindingAlgorithm::Update(Agent* _agent, float dt)
+void PathFindingAlgorithm::Update(float dt)
 {
 	if(goalReached == false)
-		FindPath(_agent, dt);
+		FindPath(dt);
 
-	RecoverPath(_agent);
+	RecoverPath();
 }
 
 
