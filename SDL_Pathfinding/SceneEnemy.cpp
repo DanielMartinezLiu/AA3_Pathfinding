@@ -133,6 +133,8 @@ void SceneEnemy::draw()
 	{
 		agent->draw();
 	}
+	Vector2D position = currentMaze->pix2cell(Vector2D(agents[1]->getPosition()));
+	std::cout << position.x << "  " << position.y << std::endl;
 }
 
 const char* SceneEnemy::getTitle()
