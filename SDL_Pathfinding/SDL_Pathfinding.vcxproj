@@ -141,6 +141,7 @@
     <ClCompile Include="PathFindingDijkstra.cpp" />
     <ClCompile Include="PathFindingGreedyBFS.cpp" />
     <ClCompile Include="PathFollowing.cpp" />
+    <ClCompile Include="SceneEnemy.cpp" />
     <ClCompile Include="ScenePathFindingMouse.cpp" />
     <ClCompile Include="SDL_SimpleApp.cpp" />
     <ClCompile Include="Seek.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="PathFindingGreedyBFS.h" />
     <ClInclude Include="PathFollowing.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneEnemy.h" />
     <ClInclude Include="ScenePathFindingMouse.h" />
     <ClInclude Include="SDL_SimpleApp.h" />
     <ClInclude Include="Seek.h" />
