@@ -26,9 +26,17 @@ void PathFollowing::applySteeringForce(Agent *agent, float dtime)
 			{
 				if (dist < 3) // We've reached the end of the path
 				{
-					agent->clearPath();
-					agent->setVelocity(Vector2D(0, 0));
-					return;
+					if (agent->getIsPlayer())
+					{
+						agent->clearPath();
+						agent->setVelocity(Vector2D(0, 0));
+						return;
+					}
+					if (!agent->getIsPlayer())
+					{
+						agent->resetPath();
+						return;
+					}
 				}
 				else
 				{

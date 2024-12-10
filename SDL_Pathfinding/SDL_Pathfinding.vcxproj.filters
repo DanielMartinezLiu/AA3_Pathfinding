@@ -42,7 +42,7 @@
     <ClCompile Include="PathFindingAlgorithm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PathFindingDFS.cpp">
+    <ClCompile Include="PathFindingBFS.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PathFindingDijkstra.cpp">
@@ -55,15 +55,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Node.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Connection.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PathFindingGraph.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Blackboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SensorySystem.cpp">
@@ -104,7 +95,7 @@
     <ClInclude Include="PathFindingAlgorithm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PathFindingDFS.h">
+    <ClInclude Include="PathFindingBFS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PathFindingDijkstra.h">
@@ -120,12 +111,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Connection.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PathFindingGraph.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Blackboard.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SensorySystem.h">

@@ -7,11 +7,11 @@
 #include "Node.h"
 #include "Connection.h"
 
-class PathFindingDFS : public PathFindingAlgorithm
+class PathFindingBFS : public PathFindingAlgorithm
 {
 
 public:
-	PathFindingDFS(Grid* grid, std::vector<Agent*> agent) : PathFindingAlgorithm(grid, agent) {}
+	PathFindingBFS(Grid* grid, std::vector<Agent*> agent) : PathFindingAlgorithm(grid, agent) {}
 
 	void InitFind();
 

@@ -8,7 +8,7 @@
 #include "Path.h"
 #include "Vector2D.h"
 #include "utils.h"
-
+#include "Node.h"
 
 class Agent
 {
@@ -29,7 +29,7 @@ private:
 	// Pathfinding
 	Path path;
 	int currentTargetIndex;
-
+	
 	float mass;
 	float orientation;
 	float max_force;
@@ -41,9 +41,10 @@ private:
 	int sprite_w;
 	int sprite_h;
 
+	bool isPlayer;
 
 public:
-	Agent();
+	Agent(bool _isPlayer);
 	~Agent();
 
 	Vector2D getPosition();
@@ -69,6 +70,9 @@ public:
 	void clearPath();
 	void update(float dtime, SDL_Event *event);
 	void draw();
+
+	bool getIsPlayer() { return isPlayer; }
+	void resetPath();
 
 	bool Agent::loadSpriteTexture(char* filename, int num_frames=1);
 };

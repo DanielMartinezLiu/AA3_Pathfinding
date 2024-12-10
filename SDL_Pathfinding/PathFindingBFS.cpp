@@ -1,6 +1,6 @@
-#include "PathFindingDFS.h"
+#include "PathFindingBFS.h"
 
-void PathFindingDFS::InitFind()
+void PathFindingBFS::InitFind()
 {
 	frontierQueue.push(start);
 	cameFrom.push_back(new Connection(start, start, 0));
@@ -8,7 +8,7 @@ void PathFindingDFS::InitFind()
 }
 
 
-void PathFindingDFS::FindPath(float dTime)
+void PathFindingBFS::FindPath(float dTime)
 {
 	// Si llegas a la meta, deja de pintar mapa
 	if (goalReached || frontierQueue.empty())

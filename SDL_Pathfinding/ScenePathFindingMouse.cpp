@@ -7,20 +7,58 @@ ScenePathFindingMouse::ScenePathFindingMouse()
 	draw_grid = false;
 	currentMaze = new Grid("../res/maze.csv");
 
-	/*
-	pathDijkstra = new PathFindingDijkstra(mazeWithWeight);
-	pathGFS = new PathFindingGreedyBFS(maze);
-	pathA = new PathFindingAStar(mazeWithWeight);*/
-
 	srand((unsigned int)time(NULL));
 
-	Agent *agent = new Agent;
+	std::vector<Node*> enemyPositions;
+	enemyPositions.push_back(new Node(5, 1, 0));
+	enemyPositions.push_back(new Node(10, 3, 0));
+	enemyPositions.push_back(new Node(25, 3, 0));
+	enemyPositions.push_back(new Node(27, 8, 0));
+	enemyPositions.push_back(new Node(25, 10, 0));
+	enemyPositions.push_back(new Node(15, 10, 0));
+	enemyPositions.push_back(new Node(12, 5, 0));
+	enemyPositions.push_back(new Node(7, 5, 0));
+
+	std::vector<Node*> enemyPositions2;
+	enemyPositions2.push_back(new Node(37, 20, 0));
+	enemyPositions2.push_back(new Node(37, 10, 0));
+	enemyPositions2.push_back(new Node(32, 10, 0));
+	enemyPositions2.push_back(new Node(32, 14, 0));
+	enemyPositions2.push_back(new Node(22, 14, 0));
+	enemyPositions2.push_back(new Node(22, 20, 0));
+	enemyPositions2.push_back(new Node(29, 20, 0));
+	enemyPositions2.push_back(new Node(32, 18, 0));
+	enemyPositions2.push_back(new Node(34, 20, 0));
+
+
+	Agent* agent = new Agent(true);
 	agent->loadSpriteTexture("../res/soldier.png", 4);
 	agent->setBehavior(new PathFollowing);
-	agent->setTarget(Vector2D(-20,-20));
+	agent->setTarget(Vector2D(-20, -20));
 	agents.push_back(agent);
 
-	currentPathfindingAlgorithm = new PathFindingDFS(currentMaze, agents);
+	Agent* enemy1 = new Agent(false);
+	for (Node* node : enemyPositions)
+	{
+		enemy1->addPathPoint(currentMaze->cell2pix(Vector2D(node->getX(), node->getY())));
+	}
+	enemy1->loadSpriteTexture("../res/soldier.png", 4);
+	enemy1->setBehavior(new PathFollowing);
+	enemy1->setTarget(Vector2D(-20, -20));
+	agents.push_back(enemy1);
+
+	Agent* enemy2 = new Agent(false);
+	for (Node* node : enemyPositions2)
+	{
+		enemy2->addPathPoint(currentMaze->cell2pix(Vector2D(node->getX(), node->getY())));
+	}
+	enemy2->loadSpriteTexture("../res/soldier.png", 4);
+	enemy2->setPosition(currentMaze->cell2pix(Vector2D(38, 20)));
+	enemy2->setBehavior(new PathFollowing);
+	enemy2->setTarget(Vector2D(-20, -20));
+	agents.push_back(enemy2);
+
+	currentPathfindingAlgorithm = new PathFindingBFS(currentMaze, agents);
 	loadTextures("../res/maze.png", "../res/coin.png");
 
 	// set agent position coords to the center of a random cell
@@ -61,7 +99,7 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 		if (event->key.keysym.scancode == SDL_SCANCODE_B)
 		{
 			currentMaze = new Grid("../res/maze.csv");
-			currentPathfindingAlgorithm = new PathFindingDFS(currentMaze, agents);
+			currentPathfindingAlgorithm = new PathFindingBFS(currentMaze, agents);
 		}
 		if (event->key.keysym.scancode == SDL_SCANCODE_D)
 		{
@@ -95,7 +133,11 @@ void ScenePathFindingMouse::update(float dtime, SDL_Event *event)
 	default:
 		break;
 	}
-	agents[0]->update(dtime, event);
+
+	for (Agent* agent : agents)
+	{
+		agent->update(dtime, event);
+	}
 
 	currentPathfindingAlgorithm->Update(dtime);
 
@@ -129,7 +171,10 @@ void ScenePathFindingMouse::draw()
 		}
 	}
 
-	agents[0]->draw();
+	for (Agent* agent : agents)
+	{
+		agent->draw();
+	}
 }
 
 const char* ScenePathFindingMouse::getTitle()

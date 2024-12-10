@@ -10,7 +10,7 @@
 #include "Seek.h"
 #include "PathFollowing.h"
 #include "Grid.h"
-#include "PathFindingDFS.h"
+#include "PathFindingBFS.h"
 #include "PathFindingDijkstra.h"
 #include "PathFindingGreedyBFS.h"
 #include "PathFindingAStar.h"

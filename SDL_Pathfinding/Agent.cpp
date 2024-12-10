@@ -3,7 +3,7 @@
 using namespace std;
 
 
-Agent::Agent() : sprite_texture(0),
+Agent::Agent(bool _isPlayer) : sprite_texture(0),
                  position(Vector2D(100, 100)),
 	             target(Vector2D(1000, 100)),
 	             velocity(Vector2D(0,0)),
@@ -15,7 +15,8 @@ Agent::Agent() : sprite_texture(0),
 				 sprite_num_frames(0),
 	             sprite_w(0),
 	             sprite_h(0),
-	             draw_sprite(false)
+	             draw_sprite(false),
+				 isPlayer(_isPlayer)
 {
 }
 
@@ -110,9 +111,13 @@ void Agent::update(float dtime, SDL_Event *event)
 void Agent::addPathPoint(Vector2D point)
 {
 	if (path.points.size() > 0)
+	{
 		if (path.points[path.points.size() - 1] == point)
+		{
 			return;
-
+		}
+	}
+		
 	path.points.push_back(point);
 }
 
@@ -174,6 +179,13 @@ void Agent::draw()
 	}
 
 	
+}
+
+void Agent::resetPath()
+{
+	Path oldPath = path;
+	clearPath();
+	path = oldPath;
 }
 
 bool Agent::loadSpriteTexture(char* filename, int _num_frames)
