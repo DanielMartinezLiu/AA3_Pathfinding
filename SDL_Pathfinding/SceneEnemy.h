@@ -10,7 +10,7 @@
 #include "Seek.h"
 #include "PathFollowing.h"
 #include "Grid.h"
-#include "PathFindingBFS.h"
+#include "PathFindingAlgorithm.h"
 
 class SceneEnemy : public Scene
 {
@@ -24,9 +24,10 @@ private:
 	std::vector<Agent*> agents;
 	Vector2D coinPosition;
 
-	PathFindingBFS* currentPathfindingAlgorithm;
+	PathFindingAlgorithm* currentPathfindingAlgorithm;
 
 	Grid* currentMaze;
+	Vector2D* nodePosition;
 
 	bool draw_grid;
 

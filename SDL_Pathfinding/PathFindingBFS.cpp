@@ -17,7 +17,7 @@ void PathFindingBFS::FindPath(float dTime)
 	// Suma el tiempo para dibujar el mapa
 	elapsedTime += dTime;
 
-	if (elapsedTime > 0.01f)
+	if (elapsedTime > timeToExecuteAlgorithm)
 	{
 		Node* _current = frontierQueue.front();
 		frontierQueue.pop();

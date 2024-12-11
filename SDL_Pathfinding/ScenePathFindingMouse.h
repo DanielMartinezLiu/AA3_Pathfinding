@@ -31,6 +31,7 @@ private:
 	PathFindingAlgorithm* currentPathfindingAlgorithm;
 
 	Grid* currentMaze;
+	Vector2D* nodePosition;
 
 	bool draw_grid;
 		

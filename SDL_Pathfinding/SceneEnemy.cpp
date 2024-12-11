@@ -1,11 +1,13 @@
 #include "SceneEnemy.h"
+#include "PathFindingDijkstra.h"
 
 using namespace std;
 
 SceneEnemy::SceneEnemy()
 {
 	draw_grid = false;
-	currentMaze = new Grid("../res/maze.csv");
+	currentMaze = new Grid("../res/maze1.csv");
+	nodePosition = new Vector2D;
 
 	srand((unsigned int)time(NULL));
 
@@ -39,7 +41,8 @@ SceneEnemy::SceneEnemy()
 	CreateEnemy(enemyPositions);
 	CreateEnemy(enemyPositions2);
 
-	currentPathfindingAlgorithm = new PathFindingBFS(currentMaze, agents);
+	currentPathfindingAlgorithm = new PathFindingDijkstra(currentMaze, agents);
+	currentPathfindingAlgorithm->SetTimeToExecuteAlgorithm(0);
 	loadTextures("../res/maze.png", "../res/coin.png");
 
 	// set agent position coords to the center of a random cell
@@ -165,6 +168,7 @@ void SceneEnemy::drawMaze(Grid* _grid)
 		for (int i = 0; i < _grid->getNumCellX(); i++)
 		{
 			Vector2D pos = _grid->cell2pix(Vector2D(i, j));
+			nodePosition->x = i, nodePosition->y = j;
 
 			if (!_grid->isValidCell(Vector2D((float)i, (float)j)))
 			{
@@ -172,7 +176,7 @@ void SceneEnemy::drawMaze(Grid* _grid)
 			}
 			else
 			{
-				switch (_grid->getTerrain(new Vector2D(i, j)))
+				switch (_grid->getTerrain(nodePosition))
 				{
 				case 1:
 					setColor(168, 230, 163, pos);

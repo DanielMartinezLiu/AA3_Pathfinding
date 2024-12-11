@@ -6,6 +6,7 @@ ScenePathFindingMouse::ScenePathFindingMouse()
 {
 	draw_grid = false;
 	currentMaze = new Grid("../res/maze.csv");
+	nodePosition = new Vector2D;
 
 	srand((unsigned int)time(NULL));
 
@@ -148,6 +149,7 @@ void ScenePathFindingMouse::drawMaze(Grid* _grid)
 		for (int i = 0; i < _grid->getNumCellX(); i++)
 		{		
 			Vector2D pos = _grid->cell2pix(Vector2D(i, j));
+			nodePosition->x = i, nodePosition->y = j;
 
 			if (!_grid->isValidCell(Vector2D((float)i, (float)j)))
 			{
@@ -155,7 +157,7 @@ void ScenePathFindingMouse::drawMaze(Grid* _grid)
 			} 
 			else
 			{
-				switch (_grid->getTerrain(new Vector2D(i, j)))
+				switch (_grid->getTerrain(nodePosition))
 				{
 				case 1:
 					setColor(168, 230, 163, pos);

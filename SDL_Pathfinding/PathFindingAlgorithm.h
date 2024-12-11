@@ -31,6 +31,7 @@ protected:
 	Grid* grid;
 
 	float elapsedTime;
+	float timeToExecuteAlgorithm;
 	std::vector<Node*> nodes;
 	bool goalReached;
 
@@ -55,4 +56,5 @@ public:
 	void SetStart(Node* _start) { start = _start; }
 	void SetGoal(Node* _goal) { goal = _goal; }
 	void SetGrid(Grid* _grid) { grid = _grid; }
+	void SetTimeToExecuteAlgorithm(float _value) { timeToExecuteAlgorithm = _value; }
 };

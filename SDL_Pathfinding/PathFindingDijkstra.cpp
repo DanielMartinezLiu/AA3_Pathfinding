@@ -17,7 +17,7 @@ void PathFindingDijkstra::FindPath(float dTime)
 	// Suma el tiempo para dibujar el mapa
 	elapsedTime += dTime;
 
-	if (elapsedTime > 0.01f)
+	if (elapsedTime >= timeToExecuteAlgorithm)
 	{
 		Node* _current = frontierQueuePriority.top().first;
 		frontierQueuePriority.pop();

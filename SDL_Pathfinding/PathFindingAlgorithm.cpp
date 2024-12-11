@@ -5,6 +5,7 @@ PathFindingAlgorithm::PathFindingAlgorithm(Grid* _grid, std::vector<Agent*> agen
 	start = nullptr;
 	goal = nullptr;
 	elapsedTime = 0;
+	timeToExecuteAlgorithm = 0.01f;
 	goalReached = false;
 	grid = _grid;
 	agents = agent;
