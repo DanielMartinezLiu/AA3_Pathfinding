@@ -78,6 +78,11 @@ void Agent::setVelocity(Vector2D _velocity)
 	velocity = _velocity;
 }
 
+void Agent::setMaxVelocity(float _maxVelocity)
+{
+	max_velocity = _maxVelocity;
+}
+
 void Agent::update(float dtime, SDL_Event *event)
 {
 

@@ -154,6 +154,7 @@ const char* SceneEnemy::getTitle()
 void SceneEnemy::CreateEnemy(std::vector<Node*> enemyPositions)
 {
 	Agent* enemy = new Agent(false);
+	enemy->setMaxVelocity(10);
 	for (Node* node : enemyPositions)
 	{
 		enemy->addPathPoint(currentMaze->cell2pix(Vector2D(node->getX(), node->getY())));
