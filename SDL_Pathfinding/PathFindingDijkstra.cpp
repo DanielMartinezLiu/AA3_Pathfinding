@@ -33,7 +33,6 @@ void PathFindingDijkstra::FindPath(float dTime)
 		// Comprobamos los vecinos
 		for (Node* next : grid->getNeighbours(_current))
 		{
-
 			float newCost = costSoFar[_current] + grid->getTerrain(new Vector2D(next->getX(), next->getY()));
 			if ((costSoFar.find(next) == costSoFar.end() || newCost < costSoFar[next]) && next->getType() != 0)
 			{
@@ -47,4 +46,3 @@ void PathFindingDijkstra::FindPath(float dTime)
 		elapsedTime = 0;
 	}
 }
-

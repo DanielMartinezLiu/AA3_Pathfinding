@@ -171,6 +171,9 @@ void ScenePathFindingMouse::drawMaze(Grid* _grid)
 				case 4:
 					setColor(239, 154, 154, pos);
 					break;
+				case 20:
+					setColor(255, 255, 0, pos);
+					break;
 				default:
 					break;
 				}

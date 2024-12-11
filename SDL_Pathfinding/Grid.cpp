@@ -55,10 +55,11 @@ bool Grid::isValidCell(Vector2D cell)
 
 int Grid::getTerrain(Vector2D* position)
 {
-	if (nodes[position->y][position->x] != nullptr)
+	int x = position->x;
+	int y = position->y;
+
+	if (nodes[y][x] != nullptr)
 	{
-		int x = position->x;
-		int y = position->y;
 
 		if (x < 0 || y < 0 || x >= num_cell_x || y >= num_cell_y)
 		{
@@ -68,6 +69,43 @@ int Grid::getTerrain(Vector2D* position)
 		return nodes[y][x]->getType();
 	}
 	return 0;
+}
+
+void Grid::changeWeight(Vector2D position)
+{
+
+	Node* currentNode = nodes[position.y][position.x];
+	currentNode->setType(20);
+
+	std::vector<Node*> firstNeighbourNodes = getNeighbours(currentNode);
+	for (Node* firstNode : firstNeighbourNodes)
+	{
+		if (firstNode->getType() != 0)
+		{
+			firstNode->setType(15);
+		}
+		std::vector<Node*> secondNeighbourNodes = getNeighbours(firstNode);
+		for (Node* secondNode : secondNeighbourNodes)
+		{
+			if (secondNode->getType() != 0 && secondNode != currentNode)
+			{
+				secondNode->setType(10);
+			}
+		}
+		secondNeighbourNodes.clear();
+	}
+	firstNeighbourNodes.clear();
+}
+
+void Grid::resetWeight()
+{
+	for (std::vector<Node*> node : nodes)
+	{
+		for (Node* currentNode : node)
+		{
+			currentNode->setType(currentNode->getDefaultType());
+		}
+	}
 }
 
 int Grid::getCost(Node* current, Node* next)

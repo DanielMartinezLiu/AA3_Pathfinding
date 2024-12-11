@@ -136,8 +136,14 @@ void SceneEnemy::draw()
 	{
 		agent->draw();
 	}
-	Vector2D position = currentMaze->pix2cell(Vector2D(agents[1]->getPosition()));
-	std::cout << position.x << "  " << position.y << std::endl;
+
+	currentMaze->resetWeight();
+	for (int i = 1; i < agents.size(); i++)
+	{
+		Vector2D position = currentMaze->pix2cell(Vector2D(agents[i]->getPosition()));
+		currentMaze->changeWeight(position);
+		std::cout << position.x << "  " << position.y << std::endl;
+	}
 }
 
 const char* SceneEnemy::getTitle()
@@ -189,6 +195,15 @@ void SceneEnemy::drawMaze(Grid* _grid)
 					break;
 				case 4:
 					setColor(239, 154, 154, pos);
+					break;
+				case 10:
+					setColor(0, 0, 255, pos);
+					break;
+				case 15:
+					setColor(0, 255, 0, pos);
+					break;
+				case 20:
+					setColor(255, 0, 0, pos);
 					break;
 				default:
 					break;

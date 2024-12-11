@@ -44,5 +44,4 @@ private:
 	SDL_Texture *coin_texture;
 
 	bool loadTextures(char* filename_bg, char* filename_coin);
-
 };
