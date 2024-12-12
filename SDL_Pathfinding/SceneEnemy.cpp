@@ -110,6 +110,13 @@ void SceneEnemy::update(float dtime, SDL_Event* event)
 			coinPosition = Vector2D((float)(rand() % currentMaze->getNumCellX()), (float)(rand() % currentMaze->getNumCellY()));
 	}
 
+	currentMaze->resetWeight(); 
+
+	for (int i = 1; i < agents.size(); i++)
+	{
+		Vector2D position = currentMaze->pix2cell(Vector2D(agents[i]->getPosition()));
+		currentMaze->changeWeight(position);
+	}
 }
 
 void SceneEnemy::draw()
@@ -135,14 +142,6 @@ void SceneEnemy::draw()
 	for (Agent* agent : agents)
 	{
 		agent->draw();
-	}
-
-	currentMaze->resetWeight();
-	for (int i = 1; i < agents.size(); i++)
-	{
-		Vector2D position = currentMaze->pix2cell(Vector2D(agents[i]->getPosition()));
-		currentMaze->changeWeight(position);
-		std::cout << position.x << "  " << position.y << std::endl;
 	}
 }
 
